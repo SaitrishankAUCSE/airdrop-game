@@ -1,0 +1,340 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('https://cdn.prod.website-files.com/678fc13f6d7448c909b02f83/67abb97036214c7764724495_Switzer-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-display: 'Switzer', sans-serif;
+  --font-hero: 'Anton', Impact, sans-serif;
+
+  --color-background: var(--brand--white);
+  --color-foreground: var(--brand--black);
+
+  /* Custom Colors — Midnight Navy Palette */
+  --color-primary: #3b82f6;
+  --color-navy: #f8fafc;
+  /* Text Maps to White */
+  --color-slate-blue: #94a3b8;
+  /* AuthFuse Variables */
+  /* AuthFuse Colors */
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+
+  --color-border: hsl(214.3 31.8% 91.4%);
+  --color-input: hsl(214.3 31.8% 91.4%);
+  --color-ring: hsl(221.2 83.2% 53.3%);
+
+  --color-secondary: hsl(210 40% 96.1%);
+  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+
+  --color-accent: hsl(210 40% 96.1%);
+  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+
+  --color-muted: hsl(210 40% 96.1%);
+  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+
+  --radius: 0.5rem;
+  /* Muted Text */
+  --color-cream: #1e293b;
+  /* Dark Surface */
+
+  /* Animations */
+  --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-drift: drift 8s ease-in-out infinite;
+  --animate-pulse-slow: pulseSlow 4s ease-in-out infinite;
+  --animate-star-btn: star-btn calc(var(--duration)*1s) linear infinite;
+  --animate-flip: flip 6s infinite steps(2, end);
+  --animate-rotate: rotate 3s linear infinite both;
+}
+
+:root {
+  /* Midnight Navy Colors */
+  --brand--white: #030303;
+  /* Deep Navy Background */
+  --brand--yellow: #ffd001;
+  --brand--black: #f8fafc;
+  /* White Text */
+  --brand--pink: #ee77cf;
+
+  /* Neutral Colors */
+  --neutral--white: var(--brand--white);
+  --neutral--black: var(--brand--black);
+
+  /* Theme Mapping */
+  --_theme---background-color--background-primary: var(--brand--white);
+  --_theme---text-color--text-primary: var(--brand--black);
+  --_theme---link-color--link-primary: var(--brand--black);
+
+  /* Background variables */
+  --background: var(--brand--white);
+  --foreground: var(--brand--black);
+
+  --success: 142.1 70.6% 45.3%;
+  --success-foreground: 0 0% 100%;
+}
+
+/* Fluid Typography */
+html {
+  font-size: calc(0.625rem + 0.41666666666666663vw);
+  -webkit-text-size-adjust: 100%;
+  font-family: 'Switzer', sans-serif;
+}
+
+@media screen and (max-width: 1920px) {
+  html {
+    font-size: calc(0.625rem + 0.41666666666666674vw);
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  html {
+    font-size: calc(0.5991091314031181rem + 0.4454342984409799vw);
+  }
+}
+
+@media screen and (max-width: 991px) {
+  html {
+    font-size: calc(0.758056640625rem + 0.390625vw);
+  }
+}
+
+body {
+  background-color: var(--_theme---background-color--background-primary);
+  color: var(--_theme---text-color--text-primary);
+  font-family: 'Switzer', sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 300;
+  min-height: 100vh;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Selection */
+::selection {
+  background: var(--_brand---color);
+  color: black;
+}
+
+/* Utils */
+* {
+  box-sizing: border-box;
+}
+
+.hero-svg {
+  z-index: 2;
+  position: relative;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+  overflow-clip-margin: content-box;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes drift {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(20px, -20px);
+  }
+}
+
+@keyframes pulseSlow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes star-btn {
+  0% {
+    offset-distance: 0%;
+  }
+
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+/* Setup utilities */
+.animate-fade-in-up {
+  animation: var(--animate-fade-in-up);
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: drift 8s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 4s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+/* Subtle shimmer for tags */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Shine animation for Navbar */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Subtle shine sweep for CTA */
+@keyframes subtle-shine {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+.cta-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  animation: subtle-shine 4s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Hide scrollbar for tab bars */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth focus ring for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Prevent layout shift on font load */
+.font-display {
+  font-family: 'Switzer', system-ui, -apple-system, sans-serif;
+}
+
+@keyframes flip {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes meteor {
+  0% {
+    transform: rotate(215deg) translateX(0);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(215deg) translateX(-500px);
+    opacity: 0;
+  }
+}
+
+.animate-meteor {
+  animation: meteor 5s linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(90deg);
+  }
+}
