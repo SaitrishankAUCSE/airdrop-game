@@ -175,10 +175,10 @@ export function PlatformIntelligence() {
                         <div className="relative z-10">
                             <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400 mb-6">Our Technology</h2>
                             <p className="text-2xl md:text-4xl font-light text-white leading-tight max-w-4xl mx-auto">
-                                Powered by <span className="text-indigo-400">Neural Networks</span> & Live Data
+                                Powered by <span className="text-indigo-400">Random Forest</span> & Ensemble Learning
                             </p>
                             <p className="text-white/50 mt-6 max-w-2xl mx-auto text-lg font-light">
-                                Processing over <span className="text-white">1M+ daily data points</span> across 500+ micro-markets to deliver institutional-grade precision for every user.
+                                Processing features across <span className="text-white">500+ micro-markets</span> using high-depth decision ensembles to deliver institutional-grade precision for every user.
                             </p>
                         </div>
                     </div>

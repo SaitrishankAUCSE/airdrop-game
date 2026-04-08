@@ -12,6 +12,7 @@ import { ZoomParallax } from '@/components/ui/zoom-parallax';
 import { HandWrittenTitle } from '@/components/ui/hand-writing-text';
 import { BlurFrame } from '@/components/ui/blur-frame';
 import { TypewriterEffectSmooth } from '@/components/ui/typewriter-effect';
+import { PropertyVisual } from '@/components/ui/PropertyVisual';
 
 
 // Icon Wrappers for BentoGrid (using existing Material Symbols)
@@ -142,11 +143,10 @@ export default function Home() {
                             </div>
                             <div className="md:w-1/2">
                                 <BlurFrame className="p-2">
-                                    <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10 bg-white/5 group">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" alt="Analysis" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                                        <div className="absolute bottom-6 left-6 text-white">
+                                    <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10 bg-slate-900 group">
+                                        <PropertyVisual city="Mumbai" locality="Bandra" type="satellite" zoom={16} />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
+                                        <div className="absolute bottom-6 left-6 text-white z-10">
                                             <p className="text-[10px] uppercase tracking-widest text-primary mb-1">Live Feed</p>
                                             <p className="text-xl font-light">Market Pulse Analysis</p>
                                         </div>
@@ -309,12 +309,11 @@ export default function Home() {
                                         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                                         className="group relative rounded-2xl overflow-hidden border border-white/10 bg-[#0a0a0a] shadow-2xl cursor-pointer"
                                     >
-                                        <div className="relative h-56 overflow-hidden">
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img src={property.image} alt={property.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                                            <span className={`absolute top-4 left-4 px-3 py-1 text-xs font-medium rounded-full border backdrop-blur-sm ${property.tagColor}`}>{property.tag}</span>
-                                            <div className="absolute bottom-4 left-4">
+                                        <div className="relative h-56 overflow-hidden bg-slate-900 border-b border-white/5">
+                                            <PropertyVisual city={property.location.split(', ')[1]} locality={property.location.split(', ')[0]} type="satellite" zoom={17} />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                                            <span className={`absolute top-4 left-4 z-10 px-3 py-1 text-xs font-medium rounded-full border backdrop-blur-sm ${property.tagColor}`}>{property.tag}</span>
+                                            <div className="absolute bottom-4 left-4 z-10">
                                                 <p className="text-2xl font-bold text-white tracking-tight">{property.price}</p>
                                             </div>
                                         </div>

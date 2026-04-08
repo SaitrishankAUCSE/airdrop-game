@@ -6,23 +6,42 @@ import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [hidden, setHidden] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [hoverIndicator, setHoverIndicator] = useState({ width: 0, left: 0, opacity: 0 });
     const [activeIndicator, setActiveIndicator] = useState({ width: 0, left: 0 });
     const navRef = useRef(null);
     const linkRefs = useRef({});
     const pathname = usePathname();
+    const lastScrollY = useRef(0);
+    const scrollTimeout = useRef(null);
 
     const isPublicPage = ['/', '/about', '/login', '/legal'].includes(pathname);
     const isLoginPage = pathname === '/login';
 
-    // Smooth scroll handler with requestAnimationFrame
+    // Hide/show navbar on scroll direction
     useEffect(() => {
         let ticking = false;
         const handleScroll = () => {
             if (!ticking) {
                 requestAnimationFrame(() => {
-                    setScrolled(window.scrollY > 30);
+                    const currentY = window.scrollY;
+                    setScrolled(currentY > 30);
+
+                    // Only hide/show after passing a threshold to avoid jitter
+                    if (currentY > 80) {
+                        if (currentY > lastScrollY.current + 5) {
+                            // Scrolling DOWN — hide navbar
+                            setHidden(true);
+                        } else if (currentY < lastScrollY.current - 5) {
+                            // Scrolling UP — show navbar
+                            setHidden(false);
+                        }
+                    } else {
+                        setHidden(false);
+                    }
+
+                    lastScrollY.current = currentY;
                     ticking = false;
                 });
                 ticking = true;
@@ -73,7 +92,7 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isLoginPage ? '-translate-y-full opacity-0 pointer-events-none' : ''} ${scrolled ? 'py-2' : 'py-4'}`}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isLoginPage ? '-translate-y-full opacity-0 pointer-events-none' : ''} ${hidden && !mobileMenuOpen ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'} ${scrolled ? 'py-2' : 'py-4'}`}
             id="navbar"
         >
             <div

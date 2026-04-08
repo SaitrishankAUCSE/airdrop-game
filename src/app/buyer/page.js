@@ -6,8 +6,9 @@ import { useSearchParams } from 'next/navigation';
 import AuthGuard from '@/components/AuthGuard';
 import { BackgroundPaths } from '@/components/ui/background-paths';
 import { TabBar, StatCard, SectionHeader, EmptyState, ProgressRing } from '@/components/ui/RoleTheme';
-import { properties, cityData, neighborhoodScores, formatPrice, formatNumber, predictPrice, monthlyTrends, savedSearches, tourRequests, buyerOffers, activityTimeline, notifications, getMonthlyEstimate, getPriceHistory, getTaxHistory, getSchoolsNearby, getRecommendations, buyerPipelineStages, buyerPipelineLabels, buyerPipelineColors } from '@/lib/mockData';
+import { properties, cityData, cityLocalities, neighborhoodScores, formatPrice, formatNumber, predictPrice, monthlyTrends, savedSearches, tourRequests, buyerOffers, activityTimeline, notifications, getMonthlyEstimate, getPriceHistory, getTaxHistory, getSchoolsNearby, getRecommendations, buyerPipelineStages, buyerPipelineLabels, buyerPipelineColors } from '@/lib/mockData';
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, LineChart, Line } from 'recharts';
+import { PropertyVisual } from '@/components/ui/PropertyVisual';
 
 const ACCENT = '#c93a2a';
 
@@ -17,9 +18,8 @@ function PropertyCard({ property, onSave, saved, onSelect, compact }) {
     return (
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group cursor-pointer" onClick={() => onSelect?.(property)}>
             <div className="relative h-44 bg-gradient-to-br from-slate-800 to-slate-700 overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={property.image} alt={property.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <PropertyVisual city={property.city} locality={property.locality} type="satellite" zoom={17} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                 <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
                     <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider text-white ${property.status === 'active' ? 'bg-green-500' : property.status === 'pending' ? 'bg-amber-500' : 'bg-slate-400'}`}>{property.status}</span>
                     <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-red-600/90 text-white flex items-center gap-0.5 shadow-lg shadow-red-500/20 ring-1 ring-white/20">
@@ -183,11 +183,13 @@ function PropertyDetailTab({ selectedProperty, savedIds, onSave }) {
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
                 <div className="flex items-start justify-between flex-wrap gap-4">
                     <div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <span className="text-3xl">{p.image}</span>
+                        <div className="flex items-center gap-4 mb-2">
+                            <div className="w-24 h-24 rounded-2xl overflow-hidden border border-white/10 shadow-xl self-start">
+                                <PropertyVisual city={p.city} locality={p.locality} type="satellite" zoom={18} />
+                            </div>
                             <div>
-                                <h2 className="text-xl font-bold text-white">{p.name}</h2>
-                                <p className="text-xs text-white/60">{p.locality}, {p.city}</p>
+                                <h2 className="text-2xl font-['Anton'] text-white tracking-wide uppercase leading-tight">{p.name}</h2>
+                                <p className="text-xs font-bold text-red-500 uppercase tracking-widest">{p.locality}, {p.city}</p>
                             </div>
                         </div>
                         <div className="flex gap-4 text-xs text-white/50 mt-2">
@@ -271,7 +273,7 @@ function PropertyDetailTab({ selectedProperty, savedIds, onSave }) {
 function PredictorTab() {
     const [form, setForm] = useState({
         city: 'Mumbai',
-        locality: '', // New Field
+        locality: 'Bandra West',
         sqft: 1000,
         bedrooms: 2,
         floor: 5,
@@ -347,21 +349,41 @@ function PredictorTab() {
         return 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1000&auto=format&fit=crop';
     };
 
-    const handlePredict = () => {
+    const handlePredict = async () => {
+        setResult(null); // Clear previous result immediately
         setLoading(true);
         setGeneratingImage(true);
-        // Do NOT clear result here to keep UI stable or to allow "Generating" state to render in place
 
-        // Simulate AI Processing & Image Generation
-        setTimeout(() => {
-            const predicted = predictPrice(form);
-            const image = getPropertyImage(form);
+        try {
+            // Generate Live Google Map Embed URL
+            const mapQuery = `${form.locality ? form.locality + ', ' : ''}${form.city}, India`;
+            const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&t=m&z=14&output=embed&iwloc=near`;
+            setGeneratedImage(mapUrl);
 
-            setGeneratedImage(image);
-            setResult(predicted); // Result updates AFTER generation
+            const reqStart = Date.now();
+            const res = await fetch('/api/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(form)
+            });
+            const data = await res.json();
+
+            // Aesthetic delay to maintain visual feedback
+            const elapsed = Date.now() - reqStart;
+            const remainingDelay = Math.max(0, 2500 - elapsed);
+            
+            setTimeout(() => {
+                setResult(data); 
+                setLoading(false);
+                setGeneratingImage(false);
+            }, remainingDelay);
+
+        } catch (error) {
+            console.error("Prediction Error:", error);
             setLoading(false);
             setGeneratingImage(false);
-        }, 3500); // 3.5s delay for "wow" factor
+            alert("Failed to connect to the prediction server. Please try again.");
+        }
     };
 
     const trendData = monthlyTrends.map(m => ({ ...m, avgPrice: m.avgPrice / 100000 }));
@@ -402,19 +424,16 @@ function PredictorTab() {
                     <div className="space-y-4">
                         <div>
                             <label className={L}>City</label>
-                            <select value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))} className={F}>
+                            <select value={form.city} onChange={e => { const newCity = e.target.value; const locs = cityLocalities[newCity] || []; setForm(f => ({ ...f, city: newCity, locality: locs[0] || '' })); }} className={F}>
                                 {cityData.sort((a, b) => a.city.localeCompare(b.city)).map(c => <option key={c.city}>{c.city}</option>)}
                             </select>
                         </div>
                         <div>
-                            <label className={L}>Locality / Street Name</label>
-                            <input
-                                type="text"
-                                value={form.locality}
-                                onChange={e => setForm(f => ({ ...f, locality: e.target.value }))}
-                                placeholder="e.g. Bandra West, MG Road"
-                                className={F}
-                            />
+                            <label className={L}>Locality</label>
+                            <select value={form.locality} onChange={e => setForm(f => ({ ...f, locality: e.target.value }))} className={F}>
+                                {(cityLocalities[form.city] || []).map(loc => <option key={loc} value={loc}>{loc}</option>)}
+                                <option value="">— Other / Custom —</option>
+                            </select>
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                             <div><label className={L}>Area (sqft)</label><input type="number" value={form.sqft} onChange={e => setForm(f => ({ ...f, sqft: +e.target.value }))} className={F} /></div>
@@ -654,7 +673,15 @@ function PredictorTab() {
                             {/* Structured Header */}
                             <div className="flex items-start justify-between mb-8">
                                 <div>
-                                    <p className="text-[10px] font-bold text-red-500 uppercase tracking-[0.3em] mb-1">AI Intelligence</p>
+                                    <div className="flex items-center gap-3 mb-1">
+                                        <p className="text-[10px] font-bold text-red-500 uppercase tracking-[0.3em]">AI Intelligence</p>
+                                        {result?.indexValue && (
+                                            <span className="px-2 py-0.5 rounded text-[8px] font-bold tracking-widest uppercase bg-green-500/10 text-green-400 border border-green-500/20 flex items-center gap-1">
+                                                <span className="w-1 h-1 rounded-full bg-green-400 animate-pulse"></span>
+                                                LIVE NIFTY REALTY: {Number(result.indexValue).toFixed(1)}
+                                            </span>
+                                        )}
+                                    </div>
                                     <h3 className="text-sm font-bold text-white/40 uppercase tracking-widest">Market Valuation</h3>
                                 </div>
                                 <div className="relative">
@@ -698,7 +725,7 @@ function PredictorTab() {
                                             className="absolute inset-0 z-20 flex flex-col items-center justify-center backdrop-blur-md"
                                         >
                                             <div className="w-16 h-16 border-4 border-red-500/30 border-t-red-500 rounded-full animate-spin mb-4"></div>
-                                            <div className="text-xs font-bold text-white/60 uppercase tracking-widest animate-pulse">Generating Visualization...</div>
+                                            <div className="text-xs font-bold text-white/60 uppercase tracking-widest animate-pulse">Analyzing Geo-Visuals...</div>
                                         </motion.div>
                                     )}
                                     {generatedImage && !generatingImage && (
@@ -708,17 +735,12 @@ function PredictorTab() {
                                             transition={{ duration: 0.8, ease: "easeOut" }}
                                             className="relative w-full h-full"
                                         >
-                                            <img src={generatedImage} alt="AI Visualization" className="w-full h-full object-cover" />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-transparent to-transparent opacity-60"></div>
-                                            <div className="absolute top-3 left-3 px-3 py-1 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center gap-2">
-                                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                                                <span className="text-[9px] font-bold text-white/80 uppercase tracking-wider">Web Search Result</span>
-                                            </div>
+                                            <PropertyVisual city={form.city} locality={form.locality} type="satellite" zoom={18} />
 
                                             {/* VERIFY ON GOOGLE BUTTON */}
                                             <div className="absolute bottom-3 right-3 flex flex-col gap-2 items-end">
                                                 <a
-                                                    href={`https://www.google.com/search?tbm=isch&q=${form.bedrooms} BHK ${form.propertyType} in ${form.locality || form.city} real photos`}
+                                                    href={`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(`${form.bedrooms} BHK ${form.propertyType} in ${form.locality ? form.locality + ', ' : ''}${form.city} real exterior interior`)}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="px-3 py-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-lg flex items-center gap-2 transition-all group/btn"
@@ -728,7 +750,7 @@ function PredictorTab() {
                                                     <span className="material-symbols-outlined text-[10px] text-white/50 group-hover/btn:text-white transition-colors">open_in_new</span>
                                                 </a>
                                                 <a
-                                                    href={`https://housing.com/in/buy/search?q=${form.locality ? `${form.locality}, ${form.city}` : form.city}&f=${form.bedrooms}`}
+                                                    href={`https://housing.com/in/buy/search?q=${encodeURIComponent(form.locality ? `${form.locality}, ${form.city}` : form.city)}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="px-3 py-1.5 bg-red-600/20 hover:bg-red-600/40 backdrop-blur-md border border-red-500/30 rounded-lg flex items-center gap-2 transition-all group/btn"
@@ -741,6 +763,27 @@ function PredictorTab() {
                                     )}
                                 </AnimatePresence>
                             </div>
+
+                            {/* AI ANALYST VERDICT */}
+                            {result && result.verdict && (
+                                <motion.div 
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4 }}
+                                    className="mb-8 p-4 bg-red-500/5 border border-red-500/10 rounded-2xl relative overflow-hidden group"
+                                >
+                                    <div className="absolute top-0 left-0 w-1 h-full bg-red-500/40"></div>
+                                    <div className="flex items-start gap-3">
+                                        <span className="material-symbols-outlined text-red-500 text-lg mt-0.5">spellcheck</span>
+                                        <p className="text-[11px] text-white/70 leading-relaxed font-medium italic">
+                                            "{result.verdict}"
+                                        </p>
+                                    </div>
+                                    <div className="mt-3 flex justify-end">
+                                        <span className="text-[8px] font-bold text-red-500/60 uppercase tracking-widest">— HomieNest AI Analyst</span>
+                                    </div>
+                                </motion.div>
+                            )}
 
                             <div className="text-center mb-10">
                                 <p className="text-[11px] font-bold text-white/40 uppercase tracking-[0.2em] mb-3">Estimated Property Value</p>
@@ -790,6 +833,24 @@ function PredictorTab() {
                                             </AreaChart>
                                         </ResponsiveContainer>
                                     </div>
+
+                                    {/* VALUE DRIVERS (ML FEATURE IMPORTANCE) */}
+                                    <div className="mt-8 pt-6 border-t border-white/5">
+                                        <p className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mb-4">Key Valuation Drivers</p>
+                                        <div className="space-y-2">
+                                            {result.drivers && result.drivers.map((d, i) => (
+                                                <div key={i} className="flex items-center justify-between p-2.5 bg-white/5 rounded-xl border border-white/5 hover:border-white/10 transition-colors">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className={`w-1.5 h-1.5 rounded-full ${d.type === 'positive' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]' : 'bg-red-500'}`}></span>
+                                                        <span className="text-[10px] font-bold text-white/80">{d.factor}</span>
+                                                    </div>
+                                                    <span className={`text-[10px] font-['Anton'] tracking-wider ${d.type === 'positive' ? 'text-green-500' : 'text-red-500'}`}>
+                                                        {d.impact}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </>
                             )}
                         </div>
@@ -836,8 +897,8 @@ function PredictorTab() {
                             {properties.filter(p => p.city === form.city).slice(0, 3).map(p => (
                                 <div key={p.id} className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden group hover:border-red-500/30 transition-all duration-500">
                                     <div className="relative h-32 overflow-hidden">
-                                        <img src={p.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={p.name} />
-                                        <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-[8px] text-white font-bold px-2 py-1 rounded-md border border-white/10">0.8 km away</div>
+                                        <PropertyVisual city={p.city} locality={p.locality} type="satellite" zoom={17} />
+                                        <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-[8px] text-white font-bold px-2 py-1 rounded-md border border-white/10 pointer-events-none">0.8 km away</div>
                                     </div>
                                     <div className="p-4">
                                         <h5 className="text-[11px] font-bold text-white mb-2 truncate group-hover:text-red-500 transition-colors">{p.name}</h5>
@@ -1224,7 +1285,7 @@ const tabs = [
 ];
 
 export default function BuyerPage() {
-    const [activeTab, setActiveTab] = useState('marketplace');
+    const [activeTab, setActiveTab] = useState('predictor');
 
 
     const [savedIds, setSavedIds] = useState(new Set([1, 4, 9]));

@@ -2,6 +2,7 @@
 import AuthGuard from '@/components/AuthGuard';
 import Link from 'next/link';
 import { SaveButton } from '@/components/ui/save-button';
+import { PropertyVisual } from '@/components/ui/PropertyVisual';
 
 import { properties, formatPrice } from '@/lib/mockData';
 
@@ -23,12 +24,9 @@ export default function Listings() {
                         {properties.map((property) => (
                             <div key={property.id} className="group bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col">
                                 {/* Image */}
-                                <div className="relative h-64 overflow-hidden">
-                                    <img
-                                        src={property.image}
-                                        alt={property.name}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
+                                <div className="relative h-64 overflow-hidden bg-slate-900">
+                                    <PropertyVisual city={property.city} locality={property.locality} type="satellite" zoom={17} />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
                                     <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-navy uppercase tracking-wider">
                                         {property.status}
                                     </div>

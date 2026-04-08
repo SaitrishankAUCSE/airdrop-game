@@ -16,6 +16,7 @@ import { AnimatedBackgroundPaths } from '@/components/ui/animated-background-pat
 import { GlassOverlay } from '@/components/ui/glass-overlay';
 import { GlobalBackButton } from '@/components/ui/global-back-button';
 import { GlobalUserProfile } from '@/components/ui/global-user-profile';
+import { GlobalMockToaster } from '@/components/ui/GlobalMockToaster';
 
 export default function RootLayout({ children }) {
     return (
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
 
                     <GlobalBackButton />
                     <GlobalUserProfile />
+                    <GlobalMockToaster />
 
                     <main className="min-h-screen">
                         {children}

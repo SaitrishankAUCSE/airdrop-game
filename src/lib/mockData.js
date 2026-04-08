@@ -71,40 +71,77 @@ export function getMonthlyEstimate(price) {
 
 // --- City Market Data (Data Intelligence) ---
 export const cityData = [
-    { city: "Mumbai", avgPrice: 28000000, pricePerSqft: 26500, growth: 7.8, inventory: 15200, demand: 96, supplyIndex: 55, avgDaysOnMarket: 45, absorptionRate: 68 },
-    { city: "Bangalore", avgPrice: 12500000, pricePerSqft: 8200, growth: 11.2, inventory: 22000, demand: 94, supplyIndex: 78, avgDaysOnMarket: 35, absorptionRate: 82 },
-    { city: "Gurgaon", avgPrice: 19500000, pricePerSqft: 13500, growth: 14.5, inventory: 11000, demand: 98, supplyIndex: 65, avgDaysOnMarket: 28, absorptionRate: 88 },
-    { city: "Hyderabad", avgPrice: 14000000, pricePerSqft: 9800, growth: 16.2, inventory: 18500, demand: 95, supplyIndex: 82, avgDaysOnMarket: 30, absorptionRate: 85 },
-    { city: "New Delhi", avgPrice: 22000000, pricePerSqft: 18000, growth: 5.5, inventory: 8500, demand: 88, supplyIndex: 45, avgDaysOnMarket: 60, absorptionRate: 60 },
-    { city: "Pune", avgPrice: 9500000, pricePerSqft: 7500, growth: 9.8, inventory: 16000, demand: 85, supplyIndex: 72, avgDaysOnMarket: 40, absorptionRate: 75 },
-    { city: "Chennai", avgPrice: 9200000, pricePerSqft: 6800, growth: 6.2, inventory: 12500, demand: 80, supplyIndex: 68, avgDaysOnMarket: 50, absorptionRate: 65 },
-    { city: "Kolkata", avgPrice: 8500000, pricePerSqft: 6500, growth: 4.8, inventory: 14000, demand: 75, supplyIndex: 60, avgDaysOnMarket: 55, absorptionRate: 58 },
-    { city: "Ahmedabad", avgPrice: 7500000, pricePerSqft: 5500, growth: 8.5, inventory: 11000, demand: 82, supplyIndex: 65, avgDaysOnMarket: 42, absorptionRate: 70 },
-    { city: "Noida", avgPrice: 8800000, pricePerSqft: 6200, growth: 12.5, inventory: 19000, demand: 86, supplyIndex: 85, avgDaysOnMarket: 32, absorptionRate: 72 },
-    { city: "Jaipur", avgPrice: 6500000, pricePerSqft: 4800, growth: 10.2, inventory: 8000, demand: 78, supplyIndex: 70, avgDaysOnMarket: 38, absorptionRate: 65 },
-    { city: "Lucknow", avgPrice: 5800000, pricePerSqft: 4200, growth: 9.5, inventory: 7500, demand: 72, supplyIndex: 68, avgDaysOnMarket: 40, absorptionRate: 62 },
-    { city: "Chandigarh", avgPrice: 11000000, pricePerSqft: 9500, growth: 7.2, inventory: 4500, demand: 85, supplyIndex: 55, avgDaysOnMarket: 45, absorptionRate: 75 },
-    { city: "Surat", avgPrice: 6200000, pricePerSqft: 4500, growth: 11.8, inventory: 9000, demand: 80, supplyIndex: 75, avgDaysOnMarket: 35, absorptionRate: 78 },
-    { city: "Indore", avgPrice: 5500000, pricePerSqft: 4000, growth: 12.2, inventory: 8500, demand: 84, supplyIndex: 80, avgDaysOnMarket: 30, absorptionRate: 82 },
-    { city: "Coimbatore", avgPrice: 6800000, pricePerSqft: 5200, growth: 8.8, inventory: 6000, demand: 76, supplyIndex: 65, avgDaysOnMarket: 42, absorptionRate: 68 },
-    { city: "Kochi", avgPrice: 7200000, pricePerSqft: 5800, growth: 6.5, inventory: 5500, demand: 70, supplyIndex: 62, avgDaysOnMarket: 48, absorptionRate: 60 },
+    { city: "Mumbai", avgPrice: 28000000, pricePerSqft: 17600, growth: 7.8, inventory: 15200, demand: 96, supplyIndex: 55, avgDaysOnMarket: 45, absorptionRate: 68 },
+    { city: "Bangalore", avgPrice: 12500000, pricePerSqft: 9310, growth: 11.2, inventory: 22000, demand: 94, supplyIndex: 78, avgDaysOnMarket: 35, absorptionRate: 82 },
+    { city: "Gurgaon", avgPrice: 19500000, pricePerSqft: 11500, growth: 14.5, inventory: 11000, demand: 98, supplyIndex: 65, avgDaysOnMarket: 28, absorptionRate: 88 },
+    { city: "Hyderabad", avgPrice: 14000000, pricePerSqft: 8300, growth: 16.2, inventory: 18500, demand: 95, supplyIndex: 82, avgDaysOnMarket: 30, absorptionRate: 85 },
+    { city: "New Delhi", avgPrice: 22000000, pricePerSqft: 9620, growth: 5.5, inventory: 8500, demand: 88, supplyIndex: 45, avgDaysOnMarket: 60, absorptionRate: 60 },
+    { city: "Pune", avgPrice: 9500000, pricePerSqft: 8220, growth: 9.8, inventory: 16000, demand: 85, supplyIndex: 72, avgDaysOnMarket: 40, absorptionRate: 75 },
+    { city: "Chennai", avgPrice: 9200000, pricePerSqft: 7500, growth: 6.2, inventory: 12500, demand: 80, supplyIndex: 68, avgDaysOnMarket: 50, absorptionRate: 65 },
+    { city: "Kolkata", avgPrice: 8500000, pricePerSqft: 6290, growth: 4.8, inventory: 14000, demand: 75, supplyIndex: 60, avgDaysOnMarket: 55, absorptionRate: 58 },
+    { city: "Ahmedabad", avgPrice: 7500000, pricePerSqft: 6000, growth: 8.5, inventory: 11000, demand: 82, supplyIndex: 65, avgDaysOnMarket: 42, absorptionRate: 70 },
+    { city: "Noida", avgPrice: 8800000, pricePerSqft: 6500, growth: 12.5, inventory: 19000, demand: 86, supplyIndex: 85, avgDaysOnMarket: 32, absorptionRate: 72 },
+    { city: "Jaipur", avgPrice: 6500000, pricePerSqft: 5800, growth: 10.2, inventory: 8000, demand: 78, supplyIndex: 70, avgDaysOnMarket: 38, absorptionRate: 65 },
+    { city: "Lucknow", avgPrice: 5800000, pricePerSqft: 7000, growth: 9.5, inventory: 7500, demand: 72, supplyIndex: 68, avgDaysOnMarket: 40, absorptionRate: 62 },
+    { city: "Chandigarh", avgPrice: 11000000, pricePerSqft: 10500, growth: 7.2, inventory: 4500, demand: 85, supplyIndex: 55, avgDaysOnMarket: 45, absorptionRate: 75 },
+    { city: "Surat", avgPrice: 6200000, pricePerSqft: 5400, growth: 11.8, inventory: 9000, demand: 80, supplyIndex: 75, avgDaysOnMarket: 35, absorptionRate: 78 },
+    { city: "Indore", avgPrice: 5500000, pricePerSqft: 5200, growth: 12.2, inventory: 8500, demand: 84, supplyIndex: 80, avgDaysOnMarket: 30, absorptionRate: 82 },
+    { city: "Coimbatore", avgPrice: 6800000, pricePerSqft: 6200, growth: 8.8, inventory: 6000, demand: 76, supplyIndex: 65, avgDaysOnMarket: 42, absorptionRate: 68 },
+    { city: "Kochi", avgPrice: 7200000, pricePerSqft: 6800, growth: 6.5, inventory: 5500, demand: 70, supplyIndex: 62, avgDaysOnMarket: 48, absorptionRate: 60 },
     { city: "Thane", avgPrice: 11500000, pricePerSqft: 12500, growth: 8.8, inventory: 13500, demand: 90, supplyIndex: 75, avgDaysOnMarket: 38, absorptionRate: 70 },
-    { city: "Navi Mumbai", avgPrice: 13500000, pricePerSqft: 11000, growth: 15.5, inventory: 14000, demand: 92, supplyIndex: 70, avgDaysOnMarket: 25, absorptionRate: 85 },
-    { city: "Visakhapatnam", avgPrice: 5200000, pricePerSqft: 3800, growth: 10.5, inventory: 6500, demand: 74, supplyIndex: 72, avgDaysOnMarket: 40, absorptionRate: 64 },
-    { city: "Nagpur", avgPrice: 4800000, pricePerSqft: 3500, growth: 7.5, inventory: 7000, demand: 68, supplyIndex: 65, avgDaysOnMarket: 44, absorptionRate: 58 },
-    { city: "Ludhiana", avgPrice: 4200000, pricePerSqft: 3200, growth: 6.8, inventory: 5000, demand: 65, supplyIndex: 60, avgDaysOnMarket: 48, absorptionRate: 55 },
-    { city: "Bhopal", avgPrice: 3800000, pricePerSqft: 3000, growth: 11.5, inventory: 4800, demand: 80, supplyIndex: 75, avgDaysOnMarket: 35, absorptionRate: 72 },
-    { city: "Patna", avgPrice: 4500000, pricePerSqft: 3400, growth: 5.2, inventory: 3500, demand: 70, supplyIndex: 55, avgDaysOnMarket: 52, absorptionRate: 50 },
-    { city: "Vadodara", avgPrice: 5500000, pricePerSqft: 4000, growth: 9.2, inventory: 6200, demand: 78, supplyIndex: 68, avgDaysOnMarket: 42, absorptionRate: 68 },
-    { city: "Ghaziabad", avgPrice: 6800000, pricePerSqft: 4500, growth: 13.8, inventory: 15000, demand: 88, supplyIndex: 82, avgDaysOnMarket: 30, absorptionRate: 80 },
+    { city: "Navi Mumbai", avgPrice: 13500000, pricePerSqft: 11500, growth: 15.5, inventory: 14000, demand: 92, supplyIndex: 70, avgDaysOnMarket: 25, absorptionRate: 85 },
+    { city: "Visakhapatnam", avgPrice: 5200000, pricePerSqft: 4800, growth: 10.5, inventory: 6500, demand: 74, supplyIndex: 72, avgDaysOnMarket: 40, absorptionRate: 64 },
+    { city: "Nagpur", avgPrice: 4800000, pricePerSqft: 4500, growth: 7.5, inventory: 7000, demand: 68, supplyIndex: 65, avgDaysOnMarket: 44, absorptionRate: 58 },
+    { city: "Ludhiana", avgPrice: 4200000, pricePerSqft: 4800, growth: 6.8, inventory: 5000, demand: 65, supplyIndex: 60, avgDaysOnMarket: 48, absorptionRate: 55 },
+    { city: "Bhopal", avgPrice: 3800000, pricePerSqft: 4200, growth: 11.5, inventory: 4800, demand: 80, supplyIndex: 75, avgDaysOnMarket: 35, absorptionRate: 72 },
+    { city: "Patna", avgPrice: 4500000, pricePerSqft: 6500, growth: 5.2, inventory: 3500, demand: 70, supplyIndex: 55, avgDaysOnMarket: 52, absorptionRate: 50 },
+    { city: "Vadodara", avgPrice: 5500000, pricePerSqft: 4800, growth: 9.2, inventory: 6200, demand: 78, supplyIndex: 68, avgDaysOnMarket: 42, absorptionRate: 68 },
+    { city: "Ghaziabad", avgPrice: 6800000, pricePerSqft: 5200, growth: 13.8, inventory: 15000, demand: 88, supplyIndex: 82, avgDaysOnMarket: 30, absorptionRate: 80 },
     { city: "Rajkot", avgPrice: 4600000, pricePerSqft: 3400, growth: 12.5, inventory: 5500, demand: 82, supplyIndex: 78, avgDaysOnMarket: 32, absorptionRate: 75 },
-    { city: "Madurai", avgPrice: 4400000, pricePerSqft: 3200, growth: 8.5, inventory: 4200, demand: 72, supplyIndex: 65, avgDaysOnMarket: 45, absorptionRate: 62 },
+    { city: "Madurai", avgPrice: 4400000, pricePerSqft: 4600, growth: 8.5, inventory: 4200, demand: 72, supplyIndex: 65, avgDaysOnMarket: 45, absorptionRate: 62 },
     { city: "Raipur", avgPrice: 3500000, pricePerSqft: 2800, growth: 15.2, inventory: 3800, demand: 85, supplyIndex: 70, avgDaysOnMarket: 28, absorptionRate: 82 },
     { city: "Ranchi", avgPrice: 3200000, pricePerSqft: 2600, growth: 10.8, inventory: 3200, demand: 74, supplyIndex: 62, avgDaysOnMarket: 40, absorptionRate: 65 },
     { city: "Guwahati", avgPrice: 4200000, pricePerSqft: 3200, growth: 12.5, inventory: 2500, demand: 80, supplyIndex: 55, avgDaysOnMarket: 35, absorptionRate: 70 },
     { city: "Thiruvananthapuram", avgPrice: 6200000, pricePerSqft: 4800, growth: 7.5, inventory: 3000, demand: 75, supplyIndex: 60, avgDaysOnMarket: 48, absorptionRate: 65 },
     { city: "Vijayawada", avgPrice: 5800000, pricePerSqft: 4200, growth: 18.2, inventory: 4000, demand: 90, supplyIndex: 75, avgDaysOnMarket: 22, absorptionRate: 88 },
 ];
+
+// --- City → Major Localities Mapping (Real-World Data) ---
+export const cityLocalities = {
+    "Mumbai": ["Bandra West", "Andheri West", "Powai", "Worli", "Lower Parel", "Malad West", "Borivali", "Goregaon", "Juhu", "Chembur", "Dadar", "Colaba", "Thane", "Kurla", "Kandivali"],
+    "Bangalore": ["Whitefield", "Koramangala", "Indiranagar", "HSR Layout", "Sarjapur Road", "Electronic City", "Marathahalli", "Hebbal", "JP Nagar", "Bannerghatta Road", "Yelahanka", "Rajajinagar", "Jayanagar", "BTM Layout", "Devanahalli", "Malleshwaram", "Basavanagudi", "Frazer Town", "Benson Town", "Ulsoor", "Bellandur", "Kumaraswamy Layout", "Banashankari", "RR Nagar", "Kengeri", "Vijayanagar", "Yeshwanthpur", "Vidyaranyapura"],
+    "Gurgaon": ["Golf Course Road", "DLF Phase 5", "Sector 49", "Sector 56", "Sohna Road", "MG Road", "Sector 82", "Sector 67", "Dwarka Expressway", "Sector 48", "Palam Vihar", "Sector 37D", "Sector 92", "Sector 70A", "Sector 84"],
+    "Hyderabad": ["Gachibowli", "Hitech City", "Jubilee Hills", "Banjara Hills", "Kondapur", "Kukatpally", "Manikonda", "Miyapur", "Begumpet", "Madhapur", "Secunderabad", "LB Nagar", "Dilsukhnagar", "Uppal", "Kompally"],
+    "New Delhi": ["Vasant Vihar", "Greater Kailash", "Saket", "Dwarka", "Rohini", "Janakpuri", "Hauz Khas", "Defence Colony", "Lajpat Nagar", "Pitampura", "Karol Bagh", "Nehru Place", "Uttam Nagar", "Mayur Vihar", "Green Park"],
+    "Pune": ["Koregaon Park", "Hinjewadi", "Kharadi", "Viman Nagar", "Baner", "Wakad", "Hadapsar", "Aundh", "Kothrud", "Magarpatta", "Pimple Saudagar", "Kondhwa", "NIBM Road", "Undri", "Bavdhan"],
+    "Chennai": ["T Nagar", "Velachery", "Anna Nagar", "OMR", "Adyar", "Porur", "Tambaram", "Sholinganallur", "Thoraipakkam", "Chromepet", "Perambur", "Guindy", "Nungambakkam", "Thiruvanmiyur", "ECR"],
+    "Kolkata": ["Salt Lake", "New Town", "Rajarhat", "Ballygunge", "Alipore", "EM Bypass", "Garia", "Behala", "Tollygunge", "Jadavpur", "Howrah", "Dum Dum", "Park Street", "Lake Town", "Jodhpur Park"],
+    "Ahmedabad": ["SG Highway", "Prahlad Nagar", "Satellite", "Bodakdev", "Vastrapur", "Bopal", "South Bopal", "Ambli", "Thaltej", "Navrangpura", "Maninagar", "Chandkheda", "Gota", "Science City", "Shilaj"],
+    "Noida": ["Sector 150", "Sector 137", "Sector 78", "Sector 75", "Sector 62", "Sector 128", "Sector 44", "Greater Noida West", "Sector 50", "Sector 100", "Sector 143", "Sector 77", "Sector 135", "Yamuna Expressway", "Sector 120"],
+    "Jaipur": ["Vaishali Nagar", "Malviya Nagar", "Mansarovar", "Jagatpura", "Tonk Road", "C-Scheme", "Raja Park", "Ajmer Road", "Sodala", "Pratap Nagar", "Jhotwara", "Sanganer", "Nirman Nagar", "Bani Park", "Civil Lines"],
+    "Lucknow": ["Gomti Nagar", "Hazratganj", "Aliganj", "Indira Nagar", "Mahanagar", "Alambagh", "Jankipuram", "Vikas Nagar", "Aminabad", "Rajajipuram", "Aashiyana", "Sushant Golf City", "Eldeco Udyan", "Sahara City", "Chinhat"],
+    "Chandigarh": ["Sector 17", "Sector 35", "Sector 22", "Sector 44", "Sector 16", "Sector 8", "Sector 9", "Sector 15", "Zirakpur", "Mohali", "Panchkula", "Sector 21", "Sector 34", "Sector 43", "Sector 7"],
+    "Surat": ["Vesu", "Adajan", "Pal", "Althan", "Piplod", "Athwa", "Dumas Road", "Varachha", "Ghod Dod Road", "Magdalla", "Katargam", "Bhatar", "City Light", "New City Light", "Parvat Patiya"],
+    "Indore": ["Vijay Nagar", "Palasia", "AB Road", "Nipania", "Bhawarkuan", "Sapna Sangeeta", "MR 10", "Rau", "Tilak Nagar", "Sudama Nagar", "Scheme 78", "Scheme 54", "Bicholi Mardana", "Super Corridor", "Mahalaxmi Nagar"],
+    "Coimbatore": ["RS Puram", "Peelamedu", "Saravanampatti", "Gandhipuram", "Singanallur", "Race Course", "Ganapathy", "Vadavalli", "Sulur", "Kovaipudur", "Thudiyalur", "Ondipudur", "Kalapatti", "Vilankurichi", "Uppilipalayam"],
+    "Kochi": ["Edappally", "Kakkanad", "Vyttila", "Marine Drive", "Panampilly Nagar", "Kaloor", "Aluva", "Tripunithura", "Ernakulam North", "Palarivattom", "Thrippunithura", "Fort Kochi", "Cheranalloor", "Maradu", "Kadavanthra"],
+    "Thane": ["Ghodbunder Road", "Majiwada", "Pokhran Road", "Kolshet Road", "Manpada", "Waghbil", "Panchpakhadi", "Balkum", "Brahmand", "Vartak Nagar", "Hiranandani Estate", "Naupada", "Vijay Garden", "Samata Nagar", "Kasarvadavali"],
+    "Navi Mumbai": ["Kharghar", "Vashi", "Panvel", "Belapur", "Airoli", "Nerul", "Sanpada", "Ulwe", "Taloja", "Ghansoli", "Seawoods", "Kopar Khairane", "Kamothe", "New Panvel", "Dronagiri"],
+    "Visakhapatnam": ["Arilova", "Madhurawada", "Gajuwaka", "MVP Colony", "Seethammadhara", "Health City", "Rishikonda", "Dwaraka Nagar", "Kommadi", "Yendada", "Rushikonda", "Pendurthi", "NAD Junction", "Srikanth Nagar", "Lawsons Bay Colony", "Kancharapalem", "Akkayyapalem", "Siripuram", "Waltair Uplands", "Pedawaltair", "PM Palem", "Bheemili", "Gopalapatnam", "Simhachalam", "Vepagunta", "Sujatha Nagar"],
+    "Nagpur": ["Dharampeth", "Sadar", "Ramdaspeth", "Civil Lines", "Laxmi Nagar", "Wardha Road", "Manish Nagar", "Pratap Nagar", "IT Park", "Hingna", "Koradi Road", "Mankapur", "Trimurti Nagar", "Byramji Town", "Seminary Hills"],
+    "Ludhiana": ["Model Town", "Sarabha Nagar", "BRS Nagar", "Dugri", "Pakhowal Road", "Civil Lines", "Rajguru Nagar", "Ferozepur Road", "Rishi Nagar", "Guru Nanak Nagar", "Kitchlu Nagar", "Urban Estate", "Shaheed Bhagat Singh Nagar", "Tagore Nagar", "PAU"],
+    "Bhopal": ["MP Nagar", "Arera Colony", "Hoshangabad Road", "Kolar Road", "Shahpura", "Ayodhya Nagar", "Indrapuri", "Bairagarh", "Habibganj", "Mandideep", "BHEL", "Katara Hills", "Awadhpuri", "Danish Kunj", "Misrod"],
+    "Patna": ["Boring Road", "Kankarbagh", "Rajendra Nagar", "Bailey Road", "Patliputra Colony", "Danapur", "Anisabad", "Ashiyana Nagar", "Saguna More", "Phulwari Sharif", "Mahesh Nagar", "Naubatpur", "Budh Marg", "Sampatchak", "Khagaul"],
+    "Vadodara": ["Alkapuri", "Gotri", "Manjalpur", "Vasna Bhayli Road", "Waghodia Road", "Fatehgunj", "Sama", "Karelibaug", "Subhanpura", "Akota", "Makarpura", "Tarsali", "Harni", "Bhayli", "Tandalja"],
+    "Ghaziabad": ["Indirapuram", "Vaishali", "Raj Nagar Extension", "Crossings Republik", "Kaushambi", "Vasundhara", "Shalimar Garden", "Govindpuram", "Lal Kuan", "Wave City", "NH-24", "Mohan Nagar", "Ahinsa Khand", "Shakti Khand", "Niti Khand"],
+    "Rajkot": ["Kalawad Road", "University Road", "Raiya Road", "150 Feet Ring Road", "Astron Chowk", "Mavdi", "Kothariya", "Gondal Road", "Bhaktinagar", "Pedak Road", "Nana Mava Road", "Amin Marg", "Kalavad Road", "Jamnagar Road", "Airport Road"],
+    "Madurai": ["KK Nagar", "Anna Nagar", "SS Colony", "Villapuram", "Thiruparankundram", "Arapalayam", "Goripalayam", "Tallakulam", "Palanganatham", "Teppakulam", "Narimedu", "Iyer Bungalow", "Virattipathu", "Melur Road", "Mattuthavani"],
+    "Raipur": ["Shankar Nagar", "Devendra Nagar", "Telibandha", "Civil Lines", "Tatibandh", "Fafadih", "Pandri", "New Rajendra Nagar", "Amanaka", "Mowa", "VIP Road", "Priyadarshini Nagar", "Avanti Vihar", "Vidhan Sabha Road", "Daldal Seoni"],
+    "Ranchi": ["Morabadi", "Bariatu", "Lalpur", "Doranda", "Harmu", "Ashok Nagar", "Kanke Road", "Ratu Road", "Hinoo", "Dhurwa", "Argora", "Kadru", "Hatia", "Kokar", "Namkum"],
+    "Guwahati": ["Dispur", "Ganeshguri", "Zoo Road", "Beltola", "Hatigaon", "Six Mile", "Basistha", "GS Road", "Paltan Bazaar", "Chandmari", "Maligaon", "Hengrabari", "Kahilipara", "Lachit Nagar", "Bharalumukh"],
+    "Thiruvananthapuram": ["Kazhakootam", "Technopark", "Pattom", "Kowdiar", "Vazhuthacaud", "Kesavadasapuram", "Sreekaryam", "Peroorkada", "Vattiyoorkavu", "Mannanthala", "Enchakkal", "Ulloor", "Thirumala", "Nedumangad", "Attipra"],
+    "Vijayawada": ["Benz Circle", "Moghalrajpuram", "Labbipet", "Governorpet", "Patamata", "Kanuru", "Poranki", "Gannavaram", "Enikepadu", "Auto Nagar", "Gunadala", "Nunna", "Tadepalli", "Mangalagiri", "Penamaluru", "Bhavanipuram", "Gollapudi", "Ibrahimpatnam", "One Town", "Two Town", "Ajit Singh Nagar", "Machavaram", "Satyanarayanapuram", "Nidamanuru"],
+};
 
 // --- Monthly Market Trends ---
 export const monthlyTrends = [
@@ -230,51 +267,13 @@ export function getStatusLabel(status) {
     return labels[status] || status;
 }
 
-// --- AI Prediction Logic (Enhanced for India) ---
-export function predictPrice({ city, sqft, bedrooms, floor, age, locality = "" }) {
-    // Base rates per city (approx averages)
-    const baseRates = {
-        "Mumbai": 25000, "Delhi": 15000, "Bangalore": 9000, "Hyderabad": 10000,
-        "Gurgaon": 14000, "Noida": 8000, "Pune": 8500, "Chennai": 7500,
-        "Kolkata": 6500, "Ahmedabad": 5500, "Goa": 12000, "Thane": 12000, "Navi Mumbai": 11000,
-        "Jaipur": 4800, "Lucknow": 4200, "Chandigarh": 9500, "Surat": 4500, "Indore": 4000,
-        "Coimbatore": 5200, "Kochi": 5800, "Visakhapatnam": 3800, "Nagpur": 3500,
-        "Ludhiana": 3200, "Bhopal": 3000, "Patna": 3400, "Vadodara": 4000, "Ghaziabad": 4500,
-        "Rajkot": 3400, "Madurai": 3200, "Raipur": 2800, "Ranchi": 2600, "Guwahati": 3200,
-        "Thiruvananthapuram": 4800, "Vijayawada": 4200
-    };
+import { MLEngine } from './ml-engine';
 
-    let rate = baseRates[city] || 6000;
-
-    // Locality Adjustment (Simple Keyword Match + Deterministic Hash)
-    if (locality) {
-        const lowerLoc = locality.toLowerCase();
-        // Premium Keywords
-        if (lowerLoc.match(/bandra|jubilee|golf|dlf|worli|koramangala|indiranagar|scenic|park|lake|sea|beach|hills/)) {
-            rate *= 1.25; // 25% Premium
-        } else if (lowerLoc.match(/nagar|colony|road|street|lane/)) {
-            rate *= 1.05; // 5% Standard Premium
-        } else if (lowerLoc.match(/phase 1|phase i|sector/)) {
-            rate *= 1.10; // 10% Planned Area Premium
-        }
-
-        // Deterministic Hash for "Random" but consistent variation
-        // Sum char codes to get a variation between -10% to +10%
-        const hash = locality.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        const variation = ((hash % 20) - 10) / 100;
-        rate *= (1 + variation);
-    }
-
-    // Adjustments
-    rate = rate * (1 + (floor > 10 ? 0.01 * (floor - 10) : 0)); // Floor rise
-    rate = rate * (1 - (age * 0.01)); // Depreciation
-    rate = rate * (1 + (bedrooms > 3 ? 0.1 : 0)); // Luxury premium for large apts
-
-    const predicted = Math.round(rate * sqft);
-    const low = Math.round(predicted * 0.92);
-    const high = Math.round(predicted * 1.08);
-
-    return { predicted, low, high, confidence: 89, pricePerSqft: Math.round(rate) };
+// --- AI Prediction Logic (Professional Random Forest Engine) ---
+export function predictPrice(features) {
+    const result = MLEngine.predict(features);
+    const verdict = MLEngine.getProfessionalVerdict(result, features);
+    return { ...result, verdict };
 }
 
 // --- Recommendations ---
